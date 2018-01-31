@@ -5,6 +5,7 @@ import com.pkest.netty.CtpBootstrap;
 import com.pkest.netty.handler.CtpProtocolHandler;
 import com.pkest.netty.protocol.CtpProtocol;
 import com.pkest.transcode.common.protocol.LoginProtocol;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,14 @@ import org.slf4j.LoggerFactory;
  * Email: pk8est@qq.com
  */
 
+@ChannelHandler.Sharable
 public class DispatcherMasterCtpHandler extends CtpProtocolHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(DispatcherMasterCtpHandler.class);
+
+    public DispatcherMasterCtpHandler() {
+
+    }
 
     public DispatcherMasterCtpHandler(CtpBootstrap ctpBootstrap) {
         super(ctpBootstrap);

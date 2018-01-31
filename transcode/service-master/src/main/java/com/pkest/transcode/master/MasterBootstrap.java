@@ -18,12 +18,13 @@ public class MasterBootstrap {
 
     public static void main(String[] args) {
         CtpServerBootstrap server = new CtpServerBootstrap(9001, "127.0.0.1");
-        server.setLastCtpAdapter(new LastCtpAdapter() {
+        server.setLastHandler(new DispatcherMasterCtpHandler());
+        /*server.setLastCtpAdapter(new LastCtpAdapter() {
             @Override
             public CtpProtocolHandler addLastHandler(CtpBootstrap bootstrap) {
                 return new DispatcherMasterCtpHandler(bootstrap);
             }
-        });
+        });*/
 
         server.setCallbackEvent(new CallbackEvent() {
             @Override

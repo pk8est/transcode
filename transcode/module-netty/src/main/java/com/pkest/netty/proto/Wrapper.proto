@@ -12,6 +12,6 @@ message Wrapper {
         BYTE = 0;
         INT = 1;
         STRING = 2;
-        JSON = 3;
+        OBJECT = 3;
     }
 }

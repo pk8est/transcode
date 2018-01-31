@@ -8,10 +8,10 @@ import com.pkest.netty.util.GsonUtil;
  * QQ: 2731429978
  * Email: pk8est@qq.com
  */
-public abstract class JsonProtocol extends CtpProtocol {
+public abstract class ObjectProtocol extends CtpProtocol {
 
-    public JsonProtocol(Class clazz) {
-        super(clazz, WrapperOuterClass.Wrapper.ContectType.JSON);
+    public ObjectProtocol() {
+        super(WrapperOuterClass.Wrapper.ContectType.OBJECT);
     }
 
 

@@ -1,13 +1,13 @@
 package com.pkest.transcode.common.protocol;
 
-import com.pkest.netty.protocol.JsonProtocol;
+import com.pkest.netty.protocol.ObjectProtocol;
 
 /**
  * Created by wuzhonggui on 2017/2/7.
  * QQ: 2731429978
  * Email: pk8est@qq.com
  */
-public class LoginProtocol extends JsonProtocol {
+public class LoginProtocol extends ObjectProtocol {
 
     private String channelId;
     private String username;
@@ -15,7 +15,6 @@ public class LoginProtocol extends JsonProtocol {
     private String ip;
 
     public LoginProtocol(String channelId) {
-        super(LoginProtocol.class);
         setChannelId(channelId);
     }
 

@@ -10,8 +10,8 @@ import com.pkest.netty.util.StringUtil;
  */
 public abstract class StringProtocol extends CtpProtocol {
     protected String message;
-    public StringProtocol(Class clazz) {
-        super(clazz, WrapperOuterClass.Wrapper.ContectType.STRING);
+    public StringProtocol() {
+        super(WrapperOuterClass.Wrapper.ContectType.STRING);
     }
     public void setMessage(String message){
         this.message = message;

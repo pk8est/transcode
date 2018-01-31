@@ -23,7 +23,7 @@ import java.util.Map;
 public class CtpProtocolHandler extends WapperHandler<CtpProtocol>{
 
     protected String channelId = "";
-    protected final CtpBootstrap bootstrap;
+    protected CtpBootstrap bootstrap;
     protected String remoteIp;
     protected int remotePort;
     protected String localIp;
@@ -31,10 +31,14 @@ public class CtpProtocolHandler extends WapperHandler<CtpProtocol>{
     protected Boolean setAddress = false;
     private static final Logger logger = LoggerFactory.getLogger(CtpProtocolHandler.class);
 
+    public CtpProtocolHandler() {
+        super();
+    }
+
     public CtpProtocolHandler(CtpBootstrap bootstrap) {
         super();
         this.bootstrap = bootstrap;
-        if(bootstrap instanceof CtpClientBootstrap){
+        if(bootstrap != null && bootstrap instanceof CtpClientBootstrap){
             setChannelId(bootstrap.getChannelId());
         }else{
             setChannelId(getRandomID());
@@ -85,7 +89,7 @@ public class CtpProtocolHandler extends WapperHandler<CtpProtocol>{
 
     @Override
     public final void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        if(bootstrap instanceof CtpClientBootstrap){
+        if(bootstrap != null && bootstrap instanceof CtpClientBootstrap){
             bootstrap.start();
         }
         inactive(ctx);

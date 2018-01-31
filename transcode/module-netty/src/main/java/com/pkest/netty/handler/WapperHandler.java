@@ -27,7 +27,7 @@ public abstract class WapperHandler<T extends CtpProtocol> extends SimpleChannel
         T obj = null;
         Class classType = Class.forName(wrapper.getClassType());
         switch (wrapper.getContentType()){
-            case JSON:
+            case OBJECT:
                 obj = (T) GsonUtil.getGson().fromJson(new String(wrapper.getContent().toByteArray()), classType);
                 break;
             default:

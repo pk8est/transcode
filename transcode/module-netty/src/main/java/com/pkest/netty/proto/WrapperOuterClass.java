@@ -142,9 +142,9 @@ public final class WrapperOuterClass {
        */
       STRING(2),
       /**
-       * <code>JSON = 3;</code>
+       * <code>OBJECT = 3;</code>
        */
-      JSON(3),
+      OBJECT(3),
       UNRECOGNIZED(-1),
       ;
 
@@ -161,9 +161,9 @@ public final class WrapperOuterClass {
        */
       public static final int STRING_VALUE = 2;
       /**
-       * <code>JSON = 3;</code>
+       * <code>OBJECT = 3;</code>
        */
-      public static final int JSON_VALUE = 3;
+      public static final int OBJECT_VALUE = 3;
 
 
       public final int getNumber() {
@@ -187,7 +187,7 @@ public final class WrapperOuterClass {
           case 0: return BYTE;
           case 1: return INT;
           case 2: return STRING;
-          case 3: return JSON;
+          case 3: return OBJECT;
           default: return null;
         }
       }
@@ -805,12 +805,13 @@ public final class WrapperOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rWrapper.proto\022\025com.pkest.netty.proto\"\246" +
+      "\n\rWrapper.proto\022\025com.pkest.netty.proto\"\250" +
       "\001\n\007Wrapper\022\017\n\007content\030\001 \001(\014\022?\n\013contentTy" +
       "pe\030\002 \001(\0162*.com.pkest.netty.proto.Wrapper" +
-      ".ContectType\022\021\n\tclassType\030\003 \001(\t\"6\n\013Conte" +
-      "ctType\022\010\n\004BYTE\020\000\022\007\n\003INT\020\001\022\n\n\006STRING\020\002\022\010\n" +
-      "\004JSON\020\003B\027\n\025com.pkest.netty.protob\006proto3"
+      ".ContectType\022\021\n\tclassType\030\003 \001(\t\"8\n\013Conte" +
+      "ctType\022\010\n\004BYTE\020\000\022\007\n\003INT\020\001\022\n\n\006STRING\020\002\022\n\n" +
+      "\006OBJECT\020\003B\027\n\025com.pkest.netty.protob\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

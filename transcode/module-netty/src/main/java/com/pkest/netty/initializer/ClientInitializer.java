@@ -29,7 +29,7 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
         p.addLast(new ProtobufDecoder(WrapperOuterClass.Wrapper.getDefaultInstance()));
         p.addLast(new ProtobufVarint32LengthFieldPrepender());
         p.addLast(new ProtobufEncoder());
-        p.addLast(bootstrap.getLastCtpAdapter().addLastHandler(bootstrap));
+        p.addLast(bootstrap.getLastHandler());
     }
 
 }

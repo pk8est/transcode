@@ -15,8 +15,8 @@ public abstract class CtpProtocol {
     transient private String classType;
     transient protected byte[] content;
 
-    public CtpProtocol(Class clazz, WrapperOuterClass.Wrapper.ContectType contectType) {
-        setClassType(clazz.getName());
+    public CtpProtocol(WrapperOuterClass.Wrapper.ContectType contectType) {
+        setClassType(getClass().getName());
         setContentType(contectType);
     }
 

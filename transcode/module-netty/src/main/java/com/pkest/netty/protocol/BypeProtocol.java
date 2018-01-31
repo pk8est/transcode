@@ -10,8 +10,8 @@ import com.pkest.netty.proto.WrapperOuterClass;
  */
 public abstract class BypeProtocol extends CtpProtocol {
 
-    public BypeProtocol(Class clazz) {
-        super(clazz, WrapperOuterClass.Wrapper.ContectType.BYTE);
+    public BypeProtocol() {
+        super(WrapperOuterClass.Wrapper.ContectType.BYTE);
     }
     public byte[] bytes;
     public void setBytes(byte[] bytes){

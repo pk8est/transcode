@@ -1,7 +1,5 @@
 package com.pkest.netty;
 
-import com.pkest.netty.handler.CtpProtocolHandler;
-import com.pkest.netty.handler.LastCtpAdapter;
 import com.pkest.netty.initializer.ServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -30,12 +28,6 @@ public class CtpServerBootstrap extends CtpBootstrap {
     public CtpServerBootstrap(int port, String configLocation){
         this.port = port;
         setConfigLocation(configLocation);
-        setLastCtpAdapter(new LastCtpAdapter() {
-            @Override
-            public CtpProtocolHandler addLastHandler(CtpBootstrap bootstrap) {
-                return new CtpProtocolHandler(bootstrap);
-            }
-        });
         init();
     }
 
@@ -64,19 +56,19 @@ public class CtpServerBootstrap extends CtpBootstrap {
             future.addListener(new ChannelFutureListener(){
                 @Override
                 public void operationComplete(ChannelFuture f) throws Exception {
-                    if(f.isSuccess()){
-                        channel = f.channel();
-                        startSuccessed();
-                        unsetAgainCount();
-                    }else if(againCount > 0){
-                        TimeUnit.SECONDS.sleep(againInterval);
-                        logger.error("第 {} 次重启", againCount);
-                        start();
-                        againCount--;
-                    }else{
-                        startFailed(new RuntimeException("重启服务失败"));
-                        stop();
-                    }
+                if(f.isSuccess()){
+                    channel = f.channel();
+                    startSuccessed();
+                    unsetAgainCount();
+                }else if(againCount > 0){
+                    TimeUnit.SECONDS.sleep(againInterval);
+                    logger.error("第 {} 次重启", againCount);
+                    start();
+                    againCount--;
+                }else{
+                    startFailed(new RuntimeException("重启服务失败"));
+                    stop();
+                }
                 }
             });
         }catch(Exception e){

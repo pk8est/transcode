@@ -1,7 +1,5 @@
 package com.pkest.netty;
 
-import com.pkest.netty.handler.CtpProtocolHandler;
-import com.pkest.netty.handler.LastCtpAdapter;
 import com.pkest.netty.initializer.ClientInitializer;
 import com.pkest.netty.util.StringUtil;
 import io.netty.bootstrap.Bootstrap;
@@ -30,12 +28,6 @@ public class CtpClientBootstrap extends CtpBootstrap {
     public CtpClientBootstrap(int port, String host){
         this.port = port;
         this.host = host;
-        setLastCtpAdapter(new LastCtpAdapter() {
-            @Override
-            public CtpProtocolHandler addLastHandler(CtpBootstrap bootstrap) {
-                return new CtpProtocolHandler(bootstrap);
-            }
-        });
         init();
         setChannelId(StringUtil.getUUID32());
     }
@@ -68,19 +60,19 @@ public class CtpClientBootstrap extends CtpBootstrap {
             future.addListener(new ChannelFutureListener(){
                 @Override
                 public void operationComplete(ChannelFuture f) throws Exception {
-                    if(f.isSuccess()){
-                        channel = f.channel();
-                        startSuccessed();
-                        unsetAgainCount();
-                    }else if(againCount > 0){
-                        logger.error("第 {} 次重连, {}:{}", againCount, host, port);
-                        TimeUnit.SECONDS.sleep(againInterval);
-                        start();
-                        againCount--;
-                    }else{
-                        startFailed(new RuntimeException("连接远程服务失败"));
-                        stop();
-                    }
+                if(f.isSuccess()){
+                    channel = f.channel();
+                    startSuccessed();
+                    unsetAgainCount();
+                }else if(againCount > 0){
+                    logger.error("第 {} 次重连, {}:{}", againCount, host, port);
+                    TimeUnit.SECONDS.sleep(againInterval);
+                    start();
+                    againCount--;
+                }else{
+                    startFailed(new RuntimeException("连接远程服务失败"));
+                    stop();
+                }
                 }
             });
         }catch (Exception e){

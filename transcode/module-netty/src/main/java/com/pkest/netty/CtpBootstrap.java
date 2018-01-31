@@ -1,6 +1,7 @@
 package com.pkest.netty;
 
 import com.pkest.netty.event.CallbackEvent;
+import com.pkest.netty.handler.CtpProtocolHandler;
 import com.pkest.netty.handler.LastCtpAdapter;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
@@ -27,6 +28,7 @@ public abstract class CtpBootstrap {
     protected String configLocation;
     protected LastCtpAdapter lastCtpAdapter;
     protected CallbackEvent callbackEvent;
+    protected CtpProtocolHandler lastHandler;
     private static final Logger logger = LoggerFactory.getLogger(CtpBootstrap.class);
     private XmlWebApplicationContext context;
 
@@ -38,6 +40,14 @@ public abstract class CtpBootstrap {
 
     public LastCtpAdapter getLastCtpAdapter(){
         return lastCtpAdapter;
+    }
+
+    public void setLastHandler(CtpProtocolHandler handler) {
+        this.lastHandler = handler;
+    }
+
+    public CtpProtocolHandler getLastHandler(){
+        return this.lastHandler;
     }
 
     public abstract void init();
@@ -123,4 +133,5 @@ public abstract class CtpBootstrap {
     public void setPort(int port) {
         this.port = port;
     }
+
 }

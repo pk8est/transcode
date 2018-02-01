@@ -21,10 +21,6 @@ public class DispatcherMasterCtpHandler extends CtpProtocolHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(DispatcherMasterCtpHandler.class);
 
-    public DispatcherMasterCtpHandler() {
-
-    }
-
     public DispatcherMasterCtpHandler(CtpBootstrap ctpBootstrap) {
         super(ctpBootstrap);
     }
@@ -40,6 +36,7 @@ public class DispatcherMasterCtpHandler extends CtpProtocolHandler {
         if(LoginProtocol.class.getName().equals(classType)){
             LoginProtocol message = (LoginProtocol)obj;
             logger.info("接收到slave【{}】登陆请求", message.getChannelId());
+            send(ctx.channel(), new LoginProtocol("master"));
         }
     }
 

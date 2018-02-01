@@ -3,8 +3,6 @@ package com.pkest.transcode.master;
 import com.pkest.netty.CtpBootstrap;
 import com.pkest.netty.CtpServerBootstrap;
 import com.pkest.netty.event.CallbackEvent;
-import com.pkest.netty.handler.CtpProtocolHandler;
-import com.pkest.netty.handler.LastCtpAdapter;
 import com.pkest.transcode.master.dispatch.DispatcherMasterCtpHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +16,7 @@ public class MasterBootstrap {
 
     public static void main(String[] args) {
         CtpServerBootstrap server = new CtpServerBootstrap(9001, "127.0.0.1");
-        server.setLastHandler(new DispatcherMasterCtpHandler());
+        server.setLastHandler(new DispatcherMasterCtpHandler(server));
         /*server.setLastCtpAdapter(new LastCtpAdapter() {
             @Override
             public CtpProtocolHandler addLastHandler(CtpBootstrap bootstrap) {

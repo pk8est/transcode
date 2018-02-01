@@ -1,6 +1,7 @@
 package com.pkest.netty;
 
 import com.pkest.netty.initializer.ClientInitializer;
+import com.pkest.netty.protocol.CtpProtocol;
 import com.pkest.netty.util.StringUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -85,6 +86,10 @@ public class CtpClientBootstrap extends CtpBootstrap {
         if (null != group) {
             group.shutdownGracefully();
         }
+    }
+
+    public ChannelFuture send(CtpProtocol obj) {
+        return getLastHandler().send(this.getChannel(), obj);
     }
 
 }

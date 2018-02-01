@@ -1,8 +1,11 @@
 package com.pkest.netty.protocol;
 
 import com.google.protobuf.ByteString;
+import com.pkest.netty.annotation.Protocol;
 import com.pkest.netty.proto.WrapperOuterClass;
 import io.netty.util.ReferenceCountUtil;
+
+import java.lang.annotation.Annotation;
 
 /**
  * Created by wuzhonggui on 2017/2/7.
@@ -16,7 +19,7 @@ public abstract class CtpProtocol {
     transient protected byte[] content;
 
     public CtpProtocol(WrapperOuterClass.Wrapper.ContectType contectType) {
-        setClassType(getClass().getName());
+        setClassType(getProtocolAnnotation());
         setContentType(contectType);
     }
 
@@ -51,6 +54,15 @@ public abstract class CtpProtocol {
         builder.setClassType(getClassType());
         builder.setContentType(getContentType());
         return builder;
+    }
+
+    public String getProtocolAnnotation(){
+        for(Annotation annotation: getClass().getAnnotations()){
+            if(annotation instanceof Protocol){
+                return ((Protocol) annotation).value();
+            }
+        }
+        return getClass().getName();
     }
 
     public void release() {

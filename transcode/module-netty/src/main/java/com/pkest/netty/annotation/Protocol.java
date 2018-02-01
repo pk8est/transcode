@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
  * QQ: 2731429978
  * Email: pk8est@qq.com
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Column {
+public @interface Protocol {
     String value();
 }

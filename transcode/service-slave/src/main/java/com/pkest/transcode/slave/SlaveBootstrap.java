@@ -9,6 +9,8 @@ import com.pkest.transcode.slave.dispatch.DispatcherMasterCtpHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 /**
  * Created by Administrator on 2017/2/6.
  */
@@ -16,8 +18,7 @@ public class SlaveBootstrap {
 
     private static final Logger logger = LoggerFactory.getLogger(SlaveBootstrap.class);
 
-    public static void main(String[] args) {
-        logger.info("main");
+    public static void main(String[] args) throws IOException {
         final CtpClientBootstrap client = new CtpClientBootstrap(9001, "127.0.0.1");
         final DispatcherMasterCtpHandler handler = new DispatcherMasterCtpHandler(client);
         client.setLastHandler(handler);

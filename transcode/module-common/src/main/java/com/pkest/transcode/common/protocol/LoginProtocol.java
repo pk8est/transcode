@@ -1,5 +1,6 @@
 package com.pkest.transcode.common.protocol;
 
+import com.pkest.netty.annotation.Protocol;
 import com.pkest.netty.protocol.ObjectProtocol;
 
 /**
@@ -7,6 +8,7 @@ import com.pkest.netty.protocol.ObjectProtocol;
  * QQ: 2731429978
  * Email: pk8est@qq.com
  */
+@Protocol("LoginProtocol")
 public class LoginProtocol extends ObjectProtocol {
 
     private String channelId;

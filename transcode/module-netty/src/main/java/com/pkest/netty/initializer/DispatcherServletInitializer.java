@@ -1,6 +1,7 @@
 package com.pkest.netty.initializer;
 
 import com.pkest.netty.CtpBootstrap;
+import com.pkest.netty.handler.DispatcherCtpHandler;
 import com.pkest.netty.proto.WrapperOuterClass;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -22,6 +23,10 @@ public class DispatcherServletInitializer  extends ByteToMessageDecoder {
 
     private final CtpBootstrap bootstrap;
 
+    public DispatcherServletInitializer() {
+        this.bootstrap = null;
+    }
+
     public DispatcherServletInitializer(CtpBootstrap bootstrap) {
         this.bootstrap = bootstrap;
     }
@@ -33,7 +38,8 @@ public class DispatcherServletInitializer  extends ByteToMessageDecoder {
         p.addLast(new ProtobufDecoder(WrapperOuterClass.Wrapper.getDefaultInstance()));
         p.addLast(new ProtobufVarint32LengthFieldPrepender());
         p.addLast(new ProtobufEncoder());
-        p.addLast(bootstrap.getLastHandler());
+        //p.addLast(bootstrap.getLastHandler());
+        p.addLast(new DispatcherCtpHandler());
         p.remove(this);
     }
 }

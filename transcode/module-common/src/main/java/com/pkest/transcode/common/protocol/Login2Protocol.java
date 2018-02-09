@@ -8,15 +8,15 @@ import com.pkest.netty2.protocol.ObjectProtocol;
  * QQ: 2731429978
  * Email: pk8est@qq.com
  */
-@NettyProtocol("LoginProtocol")
-public class LoginProtocol extends ObjectProtocol {
+@NettyProtocol("Login2Protocol")
+public class Login2Protocol extends ObjectProtocol {
 
     private String channelId;
     private String username;
     private String password;
     private String ip;
 
-    public LoginProtocol(String channelId) {
+    public Login2Protocol(String channelId) {
         setChannelId(channelId);
     }
 

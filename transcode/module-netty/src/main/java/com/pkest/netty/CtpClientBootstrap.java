@@ -1,5 +1,6 @@
 package com.pkest.netty;
 
+import com.pkest.netty.handler.DispatcherCtpHandler;
 import com.pkest.netty.initializer.ClientInitializer;
 import com.pkest.netty.protocol.CtpProtocol;
 import com.pkest.netty.util.StringUtil;
@@ -31,6 +32,7 @@ public class CtpClientBootstrap extends CtpBootstrap {
         this.host = host;
         init();
         setChannelId(StringUtil.getUUID32());
+        setLastHandler(new DispatcherCtpHandler(this));
     }
 
     @Override
@@ -89,7 +91,7 @@ public class CtpClientBootstrap extends CtpBootstrap {
     }
 
     public ChannelFuture send(CtpProtocol obj) {
-        return getLastHandler().send(this.getChannel(), obj);
+        return send(getChannel(), obj);
     }
 
 }

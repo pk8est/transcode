@@ -1,5 +1,6 @@
 package com.pkest.netty;
 
+import com.pkest.netty.handler.DispatcherCtpHandler;
 import com.pkest.netty.initializer.ServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -28,6 +29,7 @@ public class CtpServerBootstrap extends CtpBootstrap {
     public CtpServerBootstrap(int port, String configLocation){
         this.port = port;
         setConfigLocation(configLocation);
+        setLastHandler(new DispatcherCtpHandler(this));
         init();
     }
 

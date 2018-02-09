@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.pkest.netty.proto;
+
+option java_package = "com.pkest.netty.proto";
+
+message Wrapper {
+    bytes content = 1;
+    ContectType contentType = 2;
+    string classType = 3;
+    enum ContectType{
+        BYTE = 0;
+        INT = 1;
+        STRING = 2;
+        OBJECT = 3;
+    }
+}

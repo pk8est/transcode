@@ -1,8 +1,8 @@
-package com.pkest.netty.protocol;
+package com.pkest.netty2.protocol;
 
 import com.google.protobuf.ByteString;
-import com.pkest.netty.proto.WrapperOuterClass;
-import com.pkest.netty.util.CommonUtil;
+import com.pkest.netty2.util.CommonUtil;
+import com.pkest.netty2.proto.WrapperOuterClass;
 import io.netty.util.ReferenceCountUtil;
 
 /**

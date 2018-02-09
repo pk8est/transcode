@@ -1,6 +1,6 @@
 package com.pkest.netty.handler;
 
-import com.pkest.netty.exception.ProtocolNullException;
+import com.pkest.netty.exception.NettyProtocolNullException;
 import com.pkest.netty.proto.WrapperOuterClass.Wrapper;
 import com.pkest.netty.protocol.CtpProtocol;
 import com.pkest.netty.util.GsonUtil;
@@ -25,28 +25,28 @@ public abstract class WapperHandler<T extends CtpProtocol> extends SimpleChannel
         dispatch(ctx, wrapperToProtocol(wrapper));
     }
 
-    public Class<T> getClassType(Wrapper wrapper) throws ClassNotFoundException, ProtocolNullException {
-        String name = wrapper.getClassType();
-        Class<T> clazz = ScanAnnotationUtil.getProtocol(name);
+    public Class<T> getClassType(String classType) throws ClassNotFoundException, NettyProtocolNullException {
+        Class<T> clazz = ScanAnnotationUtil.getProtocol(classType);
         if(clazz == null){
-            throw new ProtocolNullException(name);
+            throw new NettyProtocolNullException(classType);
         }
         return clazz;
     }
 
     public T wrapperToProtocol(Wrapper wrapper) throws Exception {
         T obj = null;
-        Class classType = getClassType(wrapper);
+        String classType = wrapper.getClassType();
+        Class clazz = getClassType(classType);
         switch (wrapper.getContentType()){
             case OBJECT:
-                obj = (T) GsonUtil.getGson().fromJson(new String(wrapper.getContent().toByteArray()), classType);
+                obj = (T) GsonUtil.getGson().fromJson(new String(wrapper.getContent().toByteArray()), clazz);
                 break;
             default:
-                obj = (T) GsonUtil.getGson().fromJson("{}", classType);
+                obj = (T) GsonUtil.getGson().fromJson("{}", clazz);
                 obj.setContent(wrapper.getContent().toByteArray());
         }
         obj.setContentType(wrapper.getContentType());
-        obj.setClassType(classType.getName());
+        obj.setClassType(classType);
         return obj;
     }
 

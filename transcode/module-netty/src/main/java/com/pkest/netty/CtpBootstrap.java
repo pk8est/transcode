@@ -1,18 +1,20 @@
 package com.pkest.netty;
 
-import com.pkest.netty.event.CallbackEvent;
-import com.pkest.netty.event.EventListener;
+import com.pkest.netty.event.NettyCallbackEvent;
+import com.pkest.netty.event.NettyEventHandler;
 import com.pkest.netty.handler.CtpProtocolHandler;
-import com.pkest.netty.handler.LastCtpAdapter;
+import com.pkest.netty.handler.DispatcherCtpHandler;
 import com.pkest.netty.protocol.CtpProtocol;
+import com.pkest.netty.util.CommonUtil;
+import com.pkest.netty.util.ScanAnnotationUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,21 +36,21 @@ public abstract class CtpBootstrap <T extends CtpProtocol> {
     protected int _againCount = 3;
     protected int againInterval = 3;
     protected String configLocation;
-    protected LastCtpAdapter lastCtpAdapter;
-    protected CallbackEvent callbackEvent;
+    protected DispatcherCtpHandler dispatcherCtpHandler;
+    protected NettyCallbackEvent callbackEvent;
     protected CtpProtocolHandler lastHandler;
     private static final Logger logger = LoggerFactory.getLogger(CtpBootstrap.class);
-    private Map<Class, List<EventListener>> eventListeners = new HashMap<>();
+    private Map<Class, List<NettyEventHandler>> eventListeners = new HashMap<>();
     private XmlWebApplicationContext context;
 
     public abstract void setChannelHandler();
 
-    public void setLastCtpAdapter(LastCtpAdapter lastCtpAdapter){
-        this.lastCtpAdapter = lastCtpAdapter;
+    public void setDispatcherCtpHandler(DispatcherCtpHandler dispatcherCtpHandler){
+        this.dispatcherCtpHandler = dispatcherCtpHandler;
     }
 
-    public LastCtpAdapter getLastCtpAdapter(){
-        return lastCtpAdapter;
+    public DispatcherCtpHandler getDispatcherCtpHandler(){
+        return dispatcherCtpHandler;
     }
 
     public void setLastHandler(CtpProtocolHandler handler) {
@@ -85,11 +87,11 @@ public abstract class CtpBootstrap <T extends CtpProtocol> {
         this.configLocation = configLocation;
     }
 
-    public CallbackEvent getCallbackEvent() {
+    public NettyCallbackEvent getCallbackEvent() {
         return callbackEvent;
     }
 
-    public void setCallbackEvent(CallbackEvent callbackEvent) {
+    public void setCallbackEvent(NettyCallbackEvent callbackEvent) {
         this.callbackEvent = callbackEvent;
     }
 
@@ -143,26 +145,24 @@ public abstract class CtpBootstrap <T extends CtpProtocol> {
         this.port = port;
     }
 
-    public void addEventListener(Class<CtpProtocol> clazz, EventListener eventListener){
-        if(eventListeners.containsKey(clazz)){
-            eventListeners.get(clazz).add(eventListener);
-        }else{
-            List<EventListener> events = new ArrayList<>();
-            events.add(eventListener);
-            eventListeners.put(clazz, events);
-        }
+    public void addEventListener(Class<CtpProtocol> clazz, NettyEventHandler eventHandler){
+        ScanAnnotationUtil.addEventHandler(CommonUtil.getProtocolAnnotationOrClassName(clazz), eventHandler);
     }
 
-    public void addEventListener(EventListener eventListener){
-        Class clazz = (Class <T>)((ParameterizedType)eventListener.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        addEventListener(clazz, eventListener);
+    public void addEventListener(NettyEventHandler eventHandler){
+        Class clazz = (Class <T>)((ParameterizedType) eventHandler.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        addEventListener(clazz, eventHandler);
     }
 
-    public Map<Class, List<EventListener>> getEventListeners(){
+    public Map<Class, List<NettyEventHandler>> getEventListeners(){
         return eventListeners;
     }
 
-    public List<EventListener> getEventListeners(Class<CtpProtocol> clazz){
+    public List<NettyEventHandler> getEventListeners(Class<CtpProtocol> clazz){
         return eventListeners.get(clazz);
+    }
+
+    public ChannelFuture send(Channel channel, CtpProtocol obj) {
+        return getLastHandler().send(channel, obj);
     }
 }

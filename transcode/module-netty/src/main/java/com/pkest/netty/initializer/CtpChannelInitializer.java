@@ -37,10 +37,6 @@ public class CtpChannelInitializer extends io.netty.channel.ChannelInitializer<S
         return channelPipeline;
     }
 
-    static {
-        ScanAnnotationUtil.scanProtocolPacket();
-    }
-
     @Override
     public void initChannel(SocketChannel ch) throws Exception {
         socketChannel = ch;
@@ -58,6 +54,7 @@ public class CtpChannelInitializer extends io.netty.channel.ChannelInitializer<S
     }
 
     public void addLast(ChannelHandler handler) {
+        ScanAnnotationUtil.scanProtocolClass(handler.getClass());
         lastHandlers.add(handler);
     }
 }

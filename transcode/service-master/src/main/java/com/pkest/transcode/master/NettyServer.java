@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class NettyServer {
 
     @Value("${master.netty.port}")
-    private int port;
+    private int port = 9001;
 
     public void start() {
         EventLoopGroup boss;

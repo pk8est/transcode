@@ -1,9 +1,10 @@
 package com.pkest.netty.util;
 
 import com.pkest.netty.annotation.NettyProtocol;
-import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
-import io.github.lukehutch.fastclasspathscanner.matchprocessor.ClassAnnotationMatchProcessor;
+import io.netty.channel.ChannelHandler;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,22 +30,21 @@ public class ScanAnnotationUtil {
         return null;
     }
 
-    public static void scanProtocolPacket(){
-        //new FastClasspathScanner(PropertiesUtil.getScanProtocolPacket())
-        new FastClasspathScanner()
-            //.verbose()
-            .matchClassesWithAnnotation(NettyProtocol.class, new ClassAnnotationMatchProcessor() {
-            @Override
-            public void processMatch(Class<?> aClass) {
-                try {
-                    //这里这样写是为了解决在sprint boot的情况下获取不到注解的bug
-                    Class clazz = Class.forName(aClass.getName());
-                    protocols.put(((NettyProtocol)clazz.getAnnotation(NettyProtocol.class)).value(), clazz);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+    public static void scanProtocolClass(Class<? extends ChannelHandler> clazz){
+        for(Type type: getGenericSuperclass(clazz)){
+            Class aClass = (Class) type;
+            if(aClass.isAnnotationPresent(NettyProtocol.class)){
+                protocols.put(((NettyProtocol)aClass.getAnnotation(NettyProtocol.class)).value(), aClass);
             }
-        }).scan();
+        }
+    }
+
+    public static Type[] getGenericSuperclass(Class<? extends ChannelHandler> clazz){
+        Type type = clazz.getGenericSuperclass();
+        if(type instanceof ParameterizedType){
+            return ((ParameterizedType) type).getActualTypeArguments();
+        }
+        return new Type[0];
     }
 
 }

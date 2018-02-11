@@ -25,4 +25,5 @@ public class LoginHandler extends SimpleChannelInboundHandler<LoginProtocol> {
         System.err.println("Master LoginHandler messageReceived: " + message.getChannelId());
         ctx.writeAndFlush(new LoginProtocol("master login response!").toWrapper());
     }
+
 }

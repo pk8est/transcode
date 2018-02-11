@@ -23,7 +23,7 @@ public class MasterBootstrap {
         NettyServer nettyServer = context.getBean(NettyServer.class);
         nettyServer.start();
 
-        /*NettyServer nettyServer = new NettyServer();
+       /*NettyServer nettyServer = new NettyServer();
         nettyServer.start();*/
     }
 

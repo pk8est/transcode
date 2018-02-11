@@ -16,6 +16,10 @@
         <module>service-slave</module>
     </modules>
 
+    <properties>
+        <scan.protocol.packet>com.pkest.transcode</scan.protocol.packet>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

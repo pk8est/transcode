@@ -34,8 +34,8 @@ public class NettyServer {
             bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);  //长连接
 
             CtpChannelInitializer initializer = new CtpChannelInitializer();
-            initializer.addLast(new Login2Handler());
             initializer.addLast(new LoginHandler());
+            initializer.addLast(new Login2Handler());
             bootstrap.childHandler(initializer);
             bootstrap.bind(9001);
         }catch(Exception e){

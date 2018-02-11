@@ -15,13 +15,12 @@ public class Login2Handler extends SimpleChannelInboundHandler<Login2Protocol> {
 
     @Override
     public final void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.err.println("Login2Handler channelActive");
+        System.err.println("Login2Handler channelActive!");
     }
 
 
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, Login2Protocol message) throws Exception {
-        System.err.println("Login2Handler messageReceived " + message.getChannelId());
-
+        System.err.println("Master Login2Handler messageReceived: " + message.getChannelId());
     }
 }

@@ -2,6 +2,7 @@ package com.pkest.netty2.initializer;
 
 import com.pkest.netty2.decoder.CtpDispatcherDecoder;
 import com.pkest.netty2.proto.WrapperOuterClass;
+import com.pkest.netty2.util.ScanAnnotationUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -34,6 +35,10 @@ public class CtpChannelInitializer extends io.netty.channel.ChannelInitializer<S
 
     public ChannelPipeline getChannelPipeline() {
         return channelPipeline;
+    }
+
+    static {
+        ScanAnnotationUtil.scanProtocolPacket();
     }
 
     @Override

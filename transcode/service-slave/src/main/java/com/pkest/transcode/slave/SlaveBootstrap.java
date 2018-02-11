@@ -1,7 +1,6 @@
 package com.pkest.transcode.slave;
 
 import com.pkest.netty2.initializer.CtpChannelInitializer;
-import com.pkest.transcode.slave.handler.Login2Handler;
 import com.pkest.transcode.slave.handler.LoginHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -34,16 +33,15 @@ public class SlaveBootstrap {
             bootstrap.group(group);
             CtpChannelInitializer initializer = new CtpChannelInitializer();
             initializer.addLast(new LoginHandler());
-            initializer.addLast(new Login2Handler());
             bootstrap.handler(initializer);
 
             ChannelFuture future = bootstrap.connect(new InetSocketAddress("127.0.0.1", 9001));
             future.channel().closeFuture().sync();
 
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            group.shutdownGracefully();
+            //group.shutdownGracefully();
         }
 
         /*final CtpClientBootstrap client = new CtpClientBootstrap(9001, "127.0.0.1");

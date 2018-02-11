@@ -18,10 +18,6 @@ public class ScanAnnotationUtil {
 
     protected static Map<String, Class> protocols = new HashMap();
 
-    static {
-        scanProtocolPacket();
-    }
-
     public static Map<String, Class> getProtocols() {
         return protocols;
     }
@@ -36,10 +32,12 @@ public class ScanAnnotationUtil {
     public static void scanProtocolPacket(){
         //new FastClasspathScanner(PropertiesUtil.getScanProtocolPacket())
         new FastClasspathScanner()
+            //.verbose()
             .matchClassesWithAnnotation(NettyProtocol.class, new ClassAnnotationMatchProcessor() {
             @Override
             public void processMatch(Class<?> aClass) {
                 try {
+                    //这里这样写是为了解决在sprint boot的情况下获取不到注解的bug
                     Class clazz = Class.forName(aClass.getName());
                     protocols.put(((NettyProtocol)clazz.getAnnotation(NettyProtocol.class)).value(), clazz);
                 } catch (ClassNotFoundException e) {

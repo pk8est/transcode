@@ -15,14 +15,13 @@ public class LoginHandler extends SimpleChannelInboundHandler<LoginProtocol> {
 
     @Override
     public final void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.err.println("Client LoginHandler channelActive");
+        System.err.println("Client LoginHandler channelActive!");
         ctx.writeAndFlush(new LoginProtocol("slave login request!").toWrapper());
     }
 
 
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, LoginProtocol message) throws Exception {
-        System.err.println("Client LoginHandler messageReceived " + message.getChannelId());
-        ctx.fireChannelRead(message);
+        System.err.println("Client LoginHandler messageReceived: " + message.getChannelId());
     }
 }

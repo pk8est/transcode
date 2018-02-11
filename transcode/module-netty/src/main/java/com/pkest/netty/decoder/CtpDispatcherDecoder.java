@@ -1,10 +1,10 @@
-package com.pkest.netty2.decoder;
+package com.pkest.netty.decoder;
 
-import com.pkest.netty2.exception.NettyProtocolNullException;
-import com.pkest.netty2.protocol.CtpProtocol;
-import com.pkest.netty2.util.GsonUtil;
-import com.pkest.netty2.util.ScanAnnotationUtil;
-import com.pkest.netty2.proto.WrapperOuterClass;
+import com.pkest.netty.exception.NettyProtocolNullException;
+import com.pkest.netty.protocol.CtpProtocol;
+import com.pkest.netty.util.GsonUtil;
+import com.pkest.netty.util.ScanAnnotationUtil;
+import com.pkest.netty.proto.WrapperOuterClass;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 

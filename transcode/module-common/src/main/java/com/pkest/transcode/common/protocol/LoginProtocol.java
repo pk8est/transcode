@@ -1,7 +1,7 @@
 package com.pkest.transcode.common.protocol;
 
-import com.pkest.netty2.annotation.NettyProtocol;
-import com.pkest.netty2.protocol.ObjectProtocol;
+import com.pkest.netty.annotation.NettyProtocol;
+import com.pkest.netty.protocol.ObjectProtocol;
 
 /**
  * Created by wuzhonggui on 2017/2/7.

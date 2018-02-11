@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
  * Email: pk8est@qq.com
  */
 @RestController
-//@EnableAutoConfiguration
 public class IndexController {
+
+    //@Value("${test.name}")
+    private String name;
 
     @RequestMapping("/")
     String home() {
@@ -28,6 +30,7 @@ public class IndexController {
         if(ctx != null){
             ctx.writeAndFlush(new LoginProtocol(data).toWrapper());
         }
+        System.err.println(name);
         return data;
     }
 

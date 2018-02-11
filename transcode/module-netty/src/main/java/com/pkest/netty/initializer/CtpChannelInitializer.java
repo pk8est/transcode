@@ -1,8 +1,8 @@
-package com.pkest.netty2.initializer;
+package com.pkest.netty.initializer;
 
-import com.pkest.netty2.decoder.CtpDispatcherDecoder;
-import com.pkest.netty2.proto.WrapperOuterClass;
-import com.pkest.netty2.util.ScanAnnotationUtil;
+import com.pkest.netty.decoder.CtpDispatcherDecoder;
+import com.pkest.netty.proto.WrapperOuterClass;
+import com.pkest.netty.util.ScanAnnotationUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;

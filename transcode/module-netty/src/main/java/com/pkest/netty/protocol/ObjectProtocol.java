@@ -1,7 +1,7 @@
 package com.pkest.netty.protocol;
 
-import com.pkest.netty.proto.WrapperOuterClass;
 import com.pkest.netty.util.GsonUtil;
+import com.pkest.netty.proto.WrapperOuterClass;
 
 /**
  * Created by wuzhonggui on 2017/2/16.

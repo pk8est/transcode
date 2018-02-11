@@ -1,6 +1,6 @@
 package com.pkest.transcode.master;
 
-import com.pkest.netty2.initializer.CtpChannelInitializer;
+import com.pkest.netty.initializer.CtpChannelInitializer;
 import com.pkest.transcode.master.handler.Login2Handler;
 import com.pkest.transcode.master.handler.LoginHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -8,6 +8,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +18,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class NettyServer {
+
+    @Value("${master.netty.port}")
+    private int port;
 
     public void start() {
         EventLoopGroup boss;
@@ -37,7 +41,7 @@ public class NettyServer {
             initializer.addLast(new LoginHandler());
             initializer.addLast(new Login2Handler());
             bootstrap.childHandler(initializer);
-            bootstrap.bind(9001);
+            bootstrap.bind(port);
         }catch(Exception e){
 
         }

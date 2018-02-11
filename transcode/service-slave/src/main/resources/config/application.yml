@@ -1,0 +1,7 @@
+spring:
+   profiles:
+      active: @profiles.active@
+master:
+    netty:
+        port: ${master.netty.port}
+        ip: ${master.netty.ip}

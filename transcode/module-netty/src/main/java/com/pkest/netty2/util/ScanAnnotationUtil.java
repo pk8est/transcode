@@ -39,7 +39,12 @@ public class ScanAnnotationUtil {
             .matchClassesWithAnnotation(NettyProtocol.class, new ClassAnnotationMatchProcessor() {
             @Override
             public void processMatch(Class<?> aClass) {
-                protocols.put(aClass.getAnnotation(NettyProtocol.class).value(), aClass);
+                try {
+                    Class clazz = Class.forName(aClass.getName());
+                    protocols.put(((NettyProtocol)clazz.getAnnotation(NettyProtocol.class)).value(), clazz);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }).scan();
     }

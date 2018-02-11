@@ -36,7 +36,8 @@ public class CtpDispatcherDecoder<T extends CtpProtocol> extends MessageToMessag
     public Class getClassType(String classType) throws ClassNotFoundException, NettyProtocolNullException {
         Class clazz = ScanAnnotationUtil.getProtocol(classType);
         if(clazz == null){
-            throw new NettyProtocolNullException(classType);
+            clazz = Class.forName(classType);
+            //throw new NettyProtocolNullException(classType);
         }
         return clazz;
     }

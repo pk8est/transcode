@@ -53,7 +53,7 @@
     <logger name="org.springboot" level="INFO" additivity="false"/>
     <logger name="io.netty" level="INFO" additivity="false"/>
 
-    <springProfile name="prod">
+    <springProfile name="!dev">
         <logger name="com.pkest" level="DEBUG"  additivity="false">
             <appender-ref ref="DEBUG" />
             <appender-ref ref="INFO" />

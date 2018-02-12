@@ -5,6 +5,8 @@ import com.pkest.transcode.master.ram.NettyClientRam;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by wuzhonggui on 2018/2/8.
@@ -14,15 +16,17 @@ import io.netty.channel.SimpleChannelInboundHandler;
 @ChannelHandler.Sharable
 public class LoginHandler extends SimpleChannelInboundHandler<LoginProtocol> {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public final void channelActive(ChannelHandlerContext ctx) throws Exception {
         NettyClientRam.add(ctx);
-        System.err.println("LoginHandler channelActive!");
+        logger.info("LoginHandler channelActive!");
     }
 
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, LoginProtocol message) throws Exception {
-        System.err.println("Master LoginHandler messageReceived: " + message.getChannelId());
+        logger.info("Master LoginHandler messageReceived: " + message.getChannelId());
         ctx.writeAndFlush(new LoginProtocol("master login response!").toWrapper());
     }
 

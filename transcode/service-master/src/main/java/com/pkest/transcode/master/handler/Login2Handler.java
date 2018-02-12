@@ -4,6 +4,8 @@ import com.pkest.transcode.common.protocol.Login2Protocol;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by wuzhonggui on 2018/2/8.
@@ -13,14 +15,16 @@ import io.netty.channel.SimpleChannelInboundHandler;
 @ChannelHandler.Sharable
 public class Login2Handler extends SimpleChannelInboundHandler<Login2Protocol> {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public final void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.err.println("Login2Handler channelActive!");
+        logger.info("Login2Handler channelActive!");
     }
 
 
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, Login2Protocol message) throws Exception {
-        System.err.println("Master Login2Handler messageReceived: " + message.getChannelId());
+        logger.info("Master Login2Handler messageReceived: " + message.getChannelId());
     }
 }

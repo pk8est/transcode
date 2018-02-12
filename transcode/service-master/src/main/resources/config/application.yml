@@ -1,8 +1,8 @@
 spring:
-   profiles:
-      active: @profiles.active@
+    profiles:
+        active: @profiles.active@
+logging:
+    config: classpath:config/logback-spring.xml
 master:
     netty:
         port: ${master.netty.port}
-logging:
-    config: classpath:config/logback-spring.xml

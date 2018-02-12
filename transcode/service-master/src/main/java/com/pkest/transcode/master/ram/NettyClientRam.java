@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class NettyClientRam {
 
-    protected static List<ChannelHandlerContext> list = new ArrayList<>();
+    protected static List<ChannelHandlerContext> list = new ArrayList();
 
     public static void add(ChannelHandlerContext ctx){
         list.add(ctx);

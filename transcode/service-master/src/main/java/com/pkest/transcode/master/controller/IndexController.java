@@ -3,6 +3,8 @@ package com.pkest.transcode.master.controller;
 import com.pkest.transcode.common.protocol.LoginProtocol;
 import com.pkest.transcode.master.ram.NettyClientRam;
 import io.netty.channel.ChannelHandlerContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IndexController {
 
-    //@Value("${test.name}")
-    private String name;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping("/")
     String home() {
@@ -25,12 +26,11 @@ public class IndexController {
 
     @RequestMapping("/hello/{myName}")
     String index(@PathVariable String myName) {
-        String data = "Hello "+myName+"!!!";
+        String data = "Hello "+myName+"!";
         ChannelHandlerContext ctx = NettyClientRam.random();
         if(ctx != null){
             ctx.writeAndFlush(new LoginProtocol(data).toWrapper());
         }
-        System.err.println(name);
         return data;
     }
 

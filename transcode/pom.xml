@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <scan.protocol.packet>com.pkest.transcode</scan.protocol.packet>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencyManagement>
@@ -51,6 +51,7 @@
             <build>
                 <filters>
                     <filter>../config/filters/dev.properties</filter>
+                    <filter>src/main/filters/dev.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -65,6 +66,7 @@
             <build>
                 <filters>
                     <filter>../config/filters/prod.properties</filter>
+                    <filter>src/main/filters/prod.properties</filter>
                 </filters>
             </build>
         </profile>

@@ -5,3 +5,5 @@ master:
     netty:
         port: ${master.netty.port}
         ip: ${master.netty.ip}
+logging:
+    config: classpath:config/logback-spring.xml
